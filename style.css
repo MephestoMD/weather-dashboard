@@ -1,0 +1,11 @@
+.input-group {
+    width: 20%;
+}
+
+header {
+    text-align: center;
+    font-size: 2.5em;
+    color: #fff;
+    background-color: #424240;
+    padding: 20px;
+}
