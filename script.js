@@ -171,7 +171,7 @@ function displayFive(data) {
         
         let formDate = month + "/" + day + "/" + year;
         
-        let dateEl = document.createElement("h4");
+        let dateEl = document.createElement("h3");
         dateEl.textContent = formDate;
         dayDivEl.appendChild(dateEl);
 
@@ -180,6 +180,15 @@ function displayFive(data) {
         let iconURL = "https://openweathermap.org/img/w/" + fiveIcon + ".png";
         iconEl.innerHTML = "<img src='" + iconURL  + "'>";
         dayDivEl.appendChild(iconEl);
+
+        let tempEl = document.createElement("h4");
+        let formTemp = Math.round(((data.list[i].main.temp)-273.15)*9/5+32);
+        tempEl.textContent = "Temperature: " + formTemp + "\xB0F";
+        dayDivEl.appendChild(tempEl);
+
+        let humidEl = document.createElement("h4");
+        humidEl.textContent = "Humidity: " + data.list[i].main.humidity + "%";
+        dayDivEl.appendChild(humidEl);
 
 
 
