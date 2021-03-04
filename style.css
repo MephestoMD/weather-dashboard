@@ -28,7 +28,10 @@ header {
 
 #display-current {
     float: right;
-    border: 2px solid black;
+    border: 1px solid gray;
+    border-radius: 2%;
+    padding: 15px;
+
 }
 
 .five-day {
