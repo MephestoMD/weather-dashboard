@@ -19,18 +19,29 @@ function getCityName (event) {
     // Prevents page from refreshing upon submit
     event.preventDefault();
 
-    // Defining a variable for the submitted text content and appending it to the search history div
-    userQuery = document.getElementById("cityInput").value;
-    let historyRow = document.createElement("button");
-    historyRow.setAttribute("class", "history-row");
-    historyRow.setAttribute("value", userQuery);
-    historyRow.setAttribute("onclick", "historySearch(this.value)");
+    // Defining a variable for the submitted text content
+    userQueryPrev = document.getElementById("cityInput").value;
 
-    historyRow.textContent = userQuery;
-    historyBlock.appendChild(historyRow);
+    // If statement to prevent duplicate search from cluttering history
+    if (userQueryPrev != userQuery) {
+        userQuery = userQueryPrev;
 
-    // Calling function to fetch data using current query
-    fetchCurrent(userQuery);
+        // Creating element for search history bar and appending it
+        let historyRow = document.createElement("button");
+        historyRow.setAttribute("class", "history-row");
+        historyRow.setAttribute("value", userQuery);
+        historyRow.setAttribute("onclick", "historySearch(this.value)");
+
+        historyRow.textContent = userQuery;
+        historyBlock.appendChild(historyRow);
+
+        // Calling function to fetch data using current query
+        fetchCurrent(userQuery);
+    }
+
+
+    
+    
 }
 
 // Function definition for passing value from search history to fetchCurrent()
@@ -43,16 +54,18 @@ function historySearch(value) {
 
 // Function definition for fetch call to the current weather API
 function fetchCurrent (query) {
+    console.log(query);
+    
     let currentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=ea6eca850366a93e521d5f44b68aab35";
-
+    
     fetch(currentURL).then(function(response) {
         if (response.ok) {
-            response.json().then(function(data) {
+            return response.json().then(function(data) {
                 setCurrent(data);
             })  
         }
         else {
-            document.location.replace("index.html");
+            throw Error(response.statusText);
         }
     })
 }
@@ -60,7 +73,7 @@ function fetchCurrent (query) {
 
 // Function definition to grab relevant data from current weather API and store it in relevant variables
 function setCurrent(data) {
-    console.log(data);
+    // event.preventDefault();
     cityName = data.name;
     weatherIcon = data.weather[0].icon;
     cityTemp = Math.round(((data.main.temp)-273.15)*9/5+32);
@@ -79,14 +92,14 @@ function fetchUVI(data) {
 
     fetch(uvAPI).then(function(response) {
         if (response.ok) {
-            return response.json().then(function(data) {
+            response.json().then(function(data) {
 
                 //Function call to setUVI()
                 setUVI(data);
             })
         }
         else {
-            document.location.replace("index.html");
+            throw Error(response.statusText);
         }
     })
 }
@@ -142,6 +155,7 @@ function displayCurrent(data) {
 
 // Function definition for fetchFive() which fetches the relevant 5-day forecase data from the 5-day API using the original user query
 function fetchFive(query) {
+    console.log(query);
     let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + query + "&appid=ea6eca850366a93e521d5f44b68aab35";
 
     console.log(fiveDayURL);
@@ -155,7 +169,7 @@ function fetchFive(query) {
             })
         }
         else {
-            document.location.replace("index.html");
+            throw Error(response.statusText);
         }
     })
     
