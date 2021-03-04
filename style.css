@@ -1,11 +1,42 @@
-.input-group {
-    width: 20%;
-}
-
 header {
     text-align: center;
     font-size: 2.5em;
     color: #fff;
     background-color: #424240;
     padding: 20px;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    overflow: auto;
+}
+
+.container {
+    float: left;
+    flex-grow: 0;
+}
+
+#history-container {
+    display: flex;
+}
+
+.input-group {
+    width: 30%;
+}
+
+#history-block {
+    display: flex;
+    flex-direction: column;
+}
+.history-row {
+    border: 1px solid black;
+    width: 30%;
+    padding: 5px;
+    text-align: center;
+}
+
+#display-current {
+    float: right;
+    border: 2px solid black;
 }
