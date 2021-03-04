@@ -1,5 +1,7 @@
 let searchButton = document.querySelector(".btn");
 let historyBlock = document.querySelector("#history-block");
+
+// Global variable definitions for weather parameters
 let currDate = moment().format('L');
 let cityName = "";
 let weatherIcon = "";
@@ -26,15 +28,18 @@ function getCityName (event) {
     historyRow.textContent = userQuery;
     historyBlock.appendChild(historyRow);
 
+    // Calling function to fetch data using current query
     fetchCurrent(userQuery);
 }
 
+// Function definition for passing value from search history to fetchCurrent()
 function historySearch(value) {
-    event.preventDefault();
+    value.preventDefault();
     console.log(value);
     fetchCurrent(value);
 }
 
+// Function definition for fetch call to the current weather API
 function fetchCurrent (query) {
     let currentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=ea6eca850366a93e521d5f44b68aab35";
 
@@ -51,7 +56,7 @@ function fetchCurrent (query) {
 }
 
 
-
+// Function definition to grab relevant data from current weather API and store it in relevant variables
 function setCurrent(data) {
     console.log(data);
     cityName = data.name;
@@ -60,9 +65,11 @@ function setCurrent(data) {
     cityHumid = data.main.humidity;
     cityWind = data.wind.speed;
     
+    // Function call to fetchUVI() to grab UV Index data from that API
     fetchUVI(data);
 }
 
+// Function definition for fetchUVI() which calls the UVI API from openweathermap
 function fetchUVI(data) {
     lattitude = data.coord.lat;
     longitude = data.coord.lon;
@@ -71,6 +78,8 @@ function fetchUVI(data) {
     fetch(uvAPI).then(function(response) {
         if (response.ok) {
             return response.json().then(function(data) {
+
+                //Function call to setUVI()
                 setUVI(data);
             })
         }
@@ -80,11 +89,13 @@ function fetchUVI(data) {
     })
 }
 
+// Function definition for setUVI() which stores the UV Index information in the relevant variable and passes it to the displayCurrent() function
 function setUVI(data) {
     cityUVI = data.current.uvi;
     displayCurrent(data);
 }
 
+// Function definitin for displayCurrent() which takes all gathered information on current weather and displays it using DOM manipulation
 function displayCurrent(data) {
     // Create elements for main weather display and append data to create the main display
     let containerEl = document.querySelector("#display-current");
@@ -122,10 +133,12 @@ function displayCurrent(data) {
     uviEl.textContent = "UV Index: " + cityUVI;
     pEl.appendChild(uviEl);
 
+    // Call to fetchFive() to fetch data from the 5-day forecast API passing the same user query along
     fetchFive(userQuery);
 
 }
 
+// Function definition for fetchFive() which fetches the relevant 5-day forecase data from the 5-day API using the original user query
 function fetchFive(query) {
     let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + query + "&appid=ea6eca850366a93e521d5f44b68aab35";
 
@@ -134,6 +147,8 @@ function fetchFive(query) {
     fetch(fiveDayURL).then(function(response) {
         if (response.ok) {
             return response.json().then(function(data) {
+
+                // Function call to displayFive() passing along the API data
                 displayFive(data);
             })
         }
@@ -144,9 +159,12 @@ function fetchFive(query) {
     
 }
 
+// Function definition for displayFive() which formats and displays the 5-day forecast using DOM manipulation
 function displayFive(data) {
     console.log(data);
     let forecastContainer = document.getElementById("five-day");
+
+    // For loop using the relevant index values found within the API to gather data for each day at 12:00PM (2,10,18,26,34)
     for (let i = 2; i <= 34; i = i + 8) {
         let dayDivEl = document.createElement("div");
         forecastContainer.appendChild(dayDivEl);
@@ -156,6 +174,7 @@ function displayFive(data) {
         let month = "";
         let day = "";
 
+        // These if statements check to see if the value of the first digit of the day and month is a 0 and will leave the 0 out if so
         if (dayDate.charAt(5) != 0) {
             month = dayDate.slice(5,7);
         }
@@ -190,25 +209,11 @@ function displayFive(data) {
         humidEl.textContent = "Humidity: " + data.list[i].main.humidity + "%";
         dayDivEl.appendChild(humidEl);
 
-
-
-
-
-
-
-
-
-
-
-        // for (let i = 2; i < 34; i = i + 8) {
-
-        // }
     }
 }
 
 
-
+// Event listener for main search button
 searchButton.addEventListener("click", getCityName);
 
 
-// api.openweathermap.org/data/2.5/forecast?q={city name}&appid=ea6eca850366a93e521d5f44b68aab35
