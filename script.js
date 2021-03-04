@@ -1,5 +1,6 @@
 let searchButton = document.querySelector(".btn");
 let historyBlock = document.querySelector("#history-block");
+let forecastContainer = document.getElementById("five-day");
 
 // Global variable definitions for weather parameters
 let currDate = moment().format('L');
@@ -34,8 +35,9 @@ function getCityName (event) {
 
 // Function definition for passing value from search history to fetchCurrent()
 function historySearch(value) {
-    value.preventDefault();
+    event.preventDefault();
     console.log(value);
+    userQuery = value;
     fetchCurrent(value);
 }
 
@@ -161,12 +163,14 @@ function fetchFive(query) {
 
 // Function definition for displayFive() which formats and displays the 5-day forecast using DOM manipulation
 function displayFive(data) {
-    console.log(data);
-    let forecastContainer = document.getElementById("five-day");
 
+    // Clear any previous five-day forecast renderings
+    forecastContainer.innerHTML = "";
+    
     // For loop using the relevant index values found within the API to gather data for each day at 12:00PM (2,10,18,26,34)
     for (let i = 2; i <= 34; i = i + 8) {
         let dayDivEl = document.createElement("div");
+        dayDivEl.setAttribute("class", "five-day");
         forecastContainer.appendChild(dayDivEl);
 
         let dayDate = data.list[i].dt_txt;
