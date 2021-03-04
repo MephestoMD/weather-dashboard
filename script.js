@@ -146,6 +146,55 @@ function fetchFive(query) {
 
 function displayFive(data) {
     console.log(data);
+    let forecastContainer = document.getElementById("five-day");
+    for (let i = 2; i <= 34; i = i + 8) {
+        let dayDivEl = document.createElement("div");
+        forecastContainer.appendChild(dayDivEl);
+
+        let dayDate = data.list[i].dt_txt;
+        let year = dayDate.slice(0,4);
+        let month = "";
+        let day = "";
+
+        if (dayDate.charAt(5) != 0) {
+            month = dayDate.slice(5,7);
+        }
+        else {
+            month = dayDate.slice(6,7); 
+        }
+        if (dayDate.charAt(8) != 0) {
+            day = dayDate.slice(8,10);
+        }
+        else {
+            day = dayDate.slice(9,10);
+        }
+        
+        let formDate = month + "/" + day + "/" + year;
+        
+        let dateEl = document.createElement("h4");
+        dateEl.textContent = formDate;
+        dayDivEl.appendChild(dateEl);
+
+        let fiveIcon = data.list[i].weather[0].icon;
+        let iconEl = document.createElement("i");
+        let iconURL = "https://openweathermap.org/img/w/" + fiveIcon + ".png";
+        iconEl.innerHTML = "<img src='" + iconURL  + "'>";
+        dayDivEl.appendChild(iconEl);
+
+
+
+
+
+
+
+
+
+
+
+        // for (let i = 2; i < 34; i = i + 8) {
+
+        // }
+    }
 }
 
 

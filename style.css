@@ -7,22 +7,12 @@ header {
     width: 100%;
 }
 
-main {
-    display: flex;
-    overflow: auto;
-}
-
-.container {
-    float: left;
-    flex-grow: 0;
-}
-
 #history-container {
     display: flex;
 }
 
 .input-group {
-    width: 30%;
+    width: 20%;
 }
 
 #history-block {
@@ -31,7 +21,7 @@ main {
 }
 .history-row {
     border: 1px solid black;
-    width: 30%;
+    width: 20%;
     padding: 5px;
     text-align: center;
 }
