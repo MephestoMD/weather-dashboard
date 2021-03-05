@@ -1,6 +1,6 @@
 # Weather Dashboard
 
-<a href="https://mephestomd.github.io/day-scheduler/">Day Scheduler</a>
+<a href="https://mephestomd.github.io/weather-dashboard/">Weather Dashboard</a>
 
 *An interactive weather forecast app with current and five-day functionality*
 
