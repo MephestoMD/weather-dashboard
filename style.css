@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 header {
     text-align: center;
     font-size: 2.5em;
@@ -7,31 +11,57 @@ header {
     width: 100%;
 }
 
-#history-container {
-    display: flex;
+/* main grid container */
+.grid-container {
+    display: grid;
+    grid-template-columns: 20% 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 30px;
+    padding: 10px;
 }
 
-.input-group {
-    width: 20%;
+.sub-grid-container {
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+/* main div for form */
+#form-div {
+    grid-column-start: 1;
+    grid-column-end: 2;
 }
 
 #history-block {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
+    grid-column-start: 1;
+    grid-column-end: 2;
 }
+
 .history-row {
-    border: 1px solid black;
-    width: 20%;
+    border: 1px solid lightgray;
+    width: 100%;
     padding: 5px;
     text-align: center;
 }
 
+/* main div for current weather */
 #display-current {
-    float: right;
-    border: 1px solid gray;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    border: 1px solid lightgray;
     border-radius: 2%;
-    padding: 15px;
+    visibility: hidden;
+    padding: 30px;
+}
 
+/* main div for five-day */
+#five-day {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    border: 1px solid lightgray;
+    padding: 30px;
+    visibility: hidden;
 }
 
 .five-day {
@@ -45,4 +75,5 @@ header {
     float: left;
     text-align: center;
     margin-left: 20px;
+    margin-top: 30px;
 }

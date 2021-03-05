@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" href="jass.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -15,12 +14,19 @@
     crossorigin="anonymous">
     </script>
 </head>
+
 <body>
     <header>
         Weather Dashboard
     </header>
-        <!-- <div class = "container"> -->
-            <form>
+
+
+    <main class = "grid-container">
+
+        <!-- container for input form and history blocks -->
+        <div id = "form-div">
+                <form>
+
                 <h4>
                     Search for a city:
                 </h4>
@@ -32,22 +38,28 @@
                     </button>
                     </div>
                 </div>
-           
-                <div id = "history-block">
-
+                
+                <!-- container for history blocks -->
+                <div class = sub-grid-container>
+                    <div id = "history-block">
+                    </div>
                 </div>
 
             </form>
-        <!-- </div> -->
-
-        <div id = "display-current">
-
-        </div>
-        <h3>Five Day Forecast:</h3>
-        <div id = "five-day">
 
         </div>
 
+            <!-- container to hold current weather -->
+            <div id = "display-current">
+            </div>
+
+            <!-- container to hold five-day forecast -->
+            <div id = "five-day">
+            </div>    
+
+    </main>
+
+  
 
 
 

@@ -115,6 +115,7 @@ function displayCurrent(data) {
     // Create elements for main weather display and append data to create the main display
     let containerEl = document.querySelector("#display-current");
     containerEl.innerHTML = "";
+    containerEl.setAttribute("style", "visibility:visible");
 
     let headerEl = document.createElement("h2");
     headerEl.textContent = cityName;
@@ -180,13 +181,17 @@ function displayFive(data) {
 
     // Clear any previous five-day forecast renderings
     forecastContainer.innerHTML = "";
+    let fiveHeader = document.createElement("h2");
+    fiveHeader.textContent = "Five Day Forecast: ";
+    forecastContainer.appendChild(fiveHeader);
+    forecastContainer.setAttribute("style", "visibility:visible");
     
     // For loop using the relevant index values found within the API to gather data for each day at 12:00PM (2,10,18,26,34)
-    for (let i = 2; i <= 34; i = i + 8) {
+    for (let i = 2; i <= 18; i = i + 4) {
         let dayDivEl = document.createElement("div");
         dayDivEl.setAttribute("class", "five-day");
         forecastContainer.appendChild(dayDivEl);
-
+        console.log(data);
         let dayDate = data.list[i].dt_txt;
         let year = dayDate.slice(0,4);
         let month = "";
